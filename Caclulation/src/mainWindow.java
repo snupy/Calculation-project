@@ -21,6 +21,7 @@ import javax.swing.JToolBar;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.JTabbedPane;
 
 
 public class mainWindow {
@@ -28,7 +29,7 @@ public class mainWindow {
 	private JFrame frame;
 	private JTextField textField;
 	private JTable table;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -62,8 +63,8 @@ public class mainWindow {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0};
 		gridBagLayout.rowHeights = new int[] {0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel = new JLabel("Наименование:");
@@ -109,43 +110,47 @@ public class mainWindow {
 		gbc_label.gridy = 2;
 		frame.getContentPane().add(label, gbc_label);
 		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.gridwidth = 2;
+		gbc_tabbedPane.insets = new Insets(0, 0, 0, 5);
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_tabbedPane.gridx = 0;
+		gbc_tabbedPane.gridy = 3;
+		frame.getContentPane().add(tabbedPane, gbc_tabbedPane);
+		
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridwidth = 2;
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 3;
-		frame.getContentPane().add(panel, gbc_panel);
+		tabbedPane.addTab("Сырье", null, panel, null);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{new Integer(1), "\u044B\u0432", "\u044B\u0432", "34"},
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435", "\u0415\u0434. \u0438\u0437\u043C.", "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Object.class, Object.class
+				Integer.class, String.class, String.class, Double.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});
-		panel.add(table, BorderLayout.CENTER);
+		panel.add(table);
 		
 		JToolBar toolBar = new JToolBar();
 		panel.add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("Добавить");
+		JButton button = new JButton("New button");
+		toolBar.add(button);
+		
+		JButton btnNewButton = new JButton("New button");
 		toolBar.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Удалить");
-		toolBar.add(btnNewButton_1);
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Работы", null, panel_1, null);
 	}
 
 }
